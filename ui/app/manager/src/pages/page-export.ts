@@ -7,7 +7,7 @@ import {AppStateKeyed} from "@openremote/or-app";
 import {i18next} from "@openremote/or-translate";
 import manager, { DefaultColor3, Util } from "@openremote/core";
 import { InputType, OrInputChangedEvent } from "@openremote/or-mwc-components/or-mwc-input";
-import {OrAttributePickerPickedEvent, OrAttributePicker } from "@openremote/or-attribute-picker";
+import {OrAssetAttributePickerPickedEvent, OrAssetAttributePicker} from "@openremote/or-attribute-picker";
 import { AttributeRef } from "@openremote/model";
 import moment from "moment";
 import { buttonStyle } from "@openremote/or-rules";
@@ -267,8 +267,8 @@ export class PageExport extends Page<AppStateKeyed> {
                         <or-mwc-input .type="${InputType.DATETIME}" label="${Util.capitaliseFirstLetter(i18next.t("to"))}" .value="${moment(this.latestTimestamp).toDate()}" @or-mwc-input-changed="${(evt: OrInputChangedEvent) => this.latestTimestamp = evt.detail.value}"></or-mwc-input>
                     </div>
                     <div class="export-btn-wrapper">
-                        <or-mwc-input .disabled="${this.isClearExportBtnDisabled}" class="button" .type="${InputType.BUTTON}" label="clearTable" @click="${() => this.clearSelection()}"></or-mwc-input>
-                        <or-mwc-input .disabled="${this.isExportBtnDisabled}" class="button" raised .type="${InputType.BUTTON}" label="export" @click="${() => this.export()}"></or-mwc-input>
+                        <or-mwc-input .disabled="${this.isClearExportBtnDisabled}" class="button" .type="${InputType.BUTTON}" label="clearTable" @or-mwc-input-changed="${() => this.clearSelection()}"></or-mwc-input>
+                        <or-mwc-input .disabled="${this.isExportBtnDisabled}" class="button" raised .type="${InputType.BUTTON}" label="export" @or-mwc-input-changed="${() => this.export()}"></or-mwc-input>
                     </div>
                 </div>
             </div>
@@ -357,13 +357,13 @@ export class PageExport extends Page<AppStateKeyed> {
     
     protected _openDialog() {
 
-        const dialog = showDialog(new OrAttributePicker()
+        const dialog = showDialog(new OrAssetAttributePicker()
             .setShowOnlyDatapointAttrs(true)
             .setMultiSelect(true)
             .setSelectedAttributes(this.config.selectedAttributes)
         );
 
-        dialog.addEventListener(OrAttributePickerPickedEvent.NAME, async (ev: OrAttributePickerPickedEvent) => {
+        dialog.addEventListener(OrAssetAttributePickerPickedEvent.NAME, async (ev: OrAssetAttributePickerPickedEvent) => {
             const selectedAttributes = ev.detail;
             await this.renderTable(selectedAttributes);
             this.config = {

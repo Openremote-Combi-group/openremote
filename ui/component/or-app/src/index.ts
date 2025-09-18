@@ -101,7 +101,8 @@ export class OrApp<S extends AppStateKeyed> extends LitElement {
                 fill: ${unsafeCSS(DefaultColor3)};
                 font-size: 14px;
 
-                height: 100vh;
+                height: 100vh; /* Fallback */
+                height: 100dvh; /* Stretch to dynamic viewport height */
                 display: flex;
                 flex: 1;
                 flex-direction: column;
@@ -269,7 +270,7 @@ export class OrApp<S extends AppStateKeyed> extends LitElement {
                     this._activeMenu = activeMenu;
                 };
                 router.hooks({
-                    before(done, match) {
+                    before: (done, match) => {
                         headerUpdater(match ? match.url.split('/')[0] : undefined);
                         done();
                     }
@@ -372,15 +373,15 @@ export class OrApp<S extends AppStateKeyed> extends LitElement {
             if (!this._config.logo) {
                 this._config.logo = DefaultLogo;
             }else{
-                this._config.logo = (MANAGER_URL || "")+this._config.logo
+                this._config.logo = (manager.managerUrl ?? "") + this._config.logo
             }
             if (!this._config.logoMobile) {
                 this._config.logoMobile = DefaultMobileLogo;
             }else{
-                this._config.logoMobile = (MANAGER_URL || "")+this._config.logoMobile
+                this._config.logoMobile = (manager.managerUrl ?? "") + this._config.logoMobile
             }
 
-            const favIcon = this._config && this._config.favicon ? (MANAGER_URL || "")+this._config.favicon : DefaultFavIcon;
+            const favIcon = this._config && this._config.favicon ? (manager.managerUrl || "") + this._config.favicon : DefaultFavIcon;
 
             let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
 

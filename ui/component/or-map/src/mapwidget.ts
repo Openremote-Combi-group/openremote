@@ -28,6 +28,7 @@ import { OrMapMarker } from "./markers/or-map-marker";
 import { getLatLngBounds, getLngLat } from "./util";
 import {GeoJsonConfig, MapType } from "@openremote/model";
 import { Feature, FeatureCollection } from "geojson";
+import { isMapboxURL, transformMapboxUrl } from "./mapbox-url-utils";
 
 const mapboxJsStyles = require("mapbox.js/dist/mapbox.css");
 const maplibreGlStyles = require("maplibre-gl/dist/maplibre-gl.css");
@@ -37,6 +38,7 @@ const maplibreGeoCoderStyles = require("@maplibre/maplibre-gl-geocoder/dist/mapl
 const metersToPixelsAtMaxZoom = (meters: number, latitude: number) =>
   meters / 0.075 / Math.cos(latitude * Math.PI / 180);
 
+let pkey: string | null;
 
 export class MapWidget {
     protected _mapJs?: L.mapbox.Map;
@@ -207,6 +209,10 @@ export class MapWidget {
         }
         const settings = settingsResponse.data as any;
 
+        if (settings.override) {
+          return settings.override
+        }
+
         // Load options for current realm or fallback to default if exist
         const realmName = manager.displayRealm || "default";
         this._viewSettings = settings.options ? settings.options[realmName] ? settings.options[realmName] : settings.options.default : null;
@@ -313,8 +319,17 @@ export class MapWidget {
                 container: this._mapContainer,
                 style: settings as StyleSpecification,
                 transformRequest: (url, resourceType) => {
+                    if (!pkey) {
+                        pkey = new URL(url).searchParams.get("access_token") || ''
+                    }
+                    if (isMapboxURL(url)) {
+                        return transformMapboxUrl(url, pkey, resourceType)
+                    }
+                    // Cross-domain tile servers usually have the following headers specified "access-control-allow-methods	GET", "access-control-allow-origin *", "allow GET,HEAD". The "Access-Control-Request-Headers: Authorization" may not be set e.g. with Mapbox tile servers. The CORS preflight request (OPTION) will in this case fail if the "authorization" header is being requested cross-domain. The only headers allowed are so called "simple request" headers, see https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#simple_requests.
+                    const headers = new URL(window.origin).hostname === new URL(url).hostname 
+                        ? {Authorization: manager.getAuthorizationHeader()} : {}
                     return {
-                        headers: {Authorization: manager.getAuthorizationHeader()},
+                        headers,
                         url
                     };
                 }
@@ -339,6 +354,12 @@ export class MapWidget {
 
             if (this._zoom) {
                 options.zoom = this._zoom;
+            }
+
+            // Firefox headless mode does not support webgl, see https://bugzilla.mozilla.org/show_bug.cgi?id=1375585
+            if (!this.isWebglSupported()) {
+              console.warn("WebGL is not supported in this environment. The map cannot be initialized.");
+              return;
             }
 
             this._mapGl = new map.Map(options);
@@ -976,5 +997,27 @@ export class MapWidget {
     }
     protected _onGeocodeChange(geocode:any) {
         this._mapContainer.dispatchEvent(new OrMapGeocoderChangeEvent(geocode));
+    }
+
+    // Source: maplibre.org/maplibre-gl-js/docs/examples/check-for-support/
+    protected isWebglSupported() {
+        if (window.WebGLRenderingContext) {
+            const canvas = document.createElement('canvas');
+            try {
+                // Note that { failIfMajorPerformanceCaveat: true } can be passed as a second argument
+                // to canvas.getContext(), causing the check to fail if hardware rendering is not available. See
+                // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
+                // for more details.
+                const context = canvas.getContext('webgl2') || canvas.getContext('webgl');
+                if (context && typeof context.getParameter == 'function') {
+                    return true;
+                }
+            } catch (e) {
+                // WebGL is supported, but disabled
+            }
+            return false;
+        }
+        // WebGL not supported
+        return false;
     }
 }

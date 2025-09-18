@@ -280,6 +280,8 @@
   "sending": "Invio",
   "submit": "Invia",
   "password": "Password",
+  "resetPassword": "Reimposta password",
+  "resetPasswordConfirmation": "È stata inviata un'email per reimpostare la password.",
   "repeatPassword": "Ripeti password",
   "details": "Particolari",
   "permissions":"Permessi",
@@ -468,4 +470,4 @@
     "attributeValueLabel": "Attribute value",
     "assetTypeDoesNotExist": "Filter : Asset type does not exist"
   }
-},
+}
