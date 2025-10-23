@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-import { createServer, stdioServerTransport } from "@modelcontextprotocol/sdk/server/index.js";
-import { z } from "@modelcontextprotocol/sdk/server/validation.js";
 import pkg from "pg";
 
 const { Pool } = pkg;
@@ -42,50 +40,136 @@ function assertReadOnly(sql) {
 }
 
 async function main() {
-  const transport = stdioServerTransport();
-  const server = createServer({
-    name: "openremote-mcp-server",
-    version: "0.1.0",
-    transport,
-  });
+  // Simple JSON-RPC server implementation
+  const tools = {
+    sql_query: {
+      description: "Run a read-only SQL SELECT query against the OpenRemote PostgreSQL database.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          sql: {
+            type: "string",
+            description: "A single SELECT statement without semicolons"
+          },
+          params: {
+            type: "array",
+            description: "Optional positional parameters for parameterized queries",
+            items: {}
+          }
+        },
+        required: ["sql"]
+      }
+    },
+    health: {
+      description: "Check database connectivity",
+      inputSchema: {
+        type: "object",
+        properties: {}
+      }
+    }
+  };
 
-  server.tool("sql_query", {
-    description: "Run a read-only SQL SELECT query against the OpenRemote PostgreSQL database.",
-    schema: z.object({
-      sql: z.string().describe("A single SELECT statement without semicolons"),
-      params: z.array(z.any()).optional().describe("Optional positional parameters for parameterized queries")
-    }),
-  }, async ({ sql, params }) => {
-    assertReadOnly(sql);
-    const client = await getPool().connect();
+  // Handle JSON-RPC requests
+  process.stdin.on('data', async (data) => {
     try {
-      const res = await client.query(sql, params ?? []);
-      return { rows: res.rows, rowCount: res.rowCount, fields: res.fields?.map(f => f.name) };
-    } finally {
-      client.release();
+      const request = JSON.parse(data.toString());
+      
+      if (request.method === "tools/list") {
+        const response = {
+          jsonrpc: "2.0",
+          id: request.id,
+          result: {
+            tools: Object.entries(tools).map(([name, tool]) => ({
+              name,
+              ...tool
+            }))
+          }
+        };
+        process.stdout.write(JSON.stringify(response) + '\n');
+      } else if (request.method === "tools/call") {
+        const { name, arguments: args } = request.params;
+        
+        try {
+          let result;
+          if (name === "sql_query") {
+            const { sql, params } = args;
+            assertReadOnly(sql);
+            const client = await getPool().connect();
+            try {
+              const res = await client.query(sql, params ?? []);
+              result = { 
+                content: [{ 
+                  type: "text", 
+                  text: JSON.stringify({ 
+                    rows: res.rows, 
+                    rowCount: res.rowCount, 
+                    fields: res.fields?.map(f => f.name) 
+                  }) 
+                }] 
+              };
+            } finally {
+              client.release();
+            }
+          } else if (name === "health") {
+            const client = await getPool().connect();
+            try {
+              const r = await client.query("select 1 as ok");
+              result = { 
+                content: [{ 
+                  type: "text", 
+                  text: JSON.stringify({ ok: r.rows?.[0]?.ok === 1 }) 
+                }] 
+              };
+            } finally {
+              client.release();
+            }
+          } else {
+            throw new Error(`Unknown tool: ${name}`);
+          }
+          
+          const response = {
+            jsonrpc: "2.0",
+            id: request.id,
+            result
+          };
+          process.stdout.write(JSON.stringify(response) + '\n');
+        } catch (error) {
+          const response = {
+            jsonrpc: "2.0",
+            id: request.id,
+            error: {
+              code: -32603,
+              message: error.message
+            }
+          };
+          process.stdout.write(JSON.stringify(response) + '\n');
+        }
+      } else {
+        const response = {
+          jsonrpc: "2.0",
+          id: request.id,
+          error: {
+            code: -32601,
+            message: `Method not found: ${request.method}`
+          }
+        };
+        process.stdout.write(JSON.stringify(response) + '\n');
+      }
+    } catch (error) {
+      const response = {
+        jsonrpc: "2.0",
+        id: null,
+        error: {
+          code: -32700,
+          message: "Parse error"
+        }
+      };
+      process.stdout.write(JSON.stringify(response) + '\n');
     }
   });
-
-  server.tool("health", {
-    description: "Check database connectivity",
-    schema: z.object({}),
-  }, async () => {
-    const client = await getPool().connect();
-    try {
-      const r = await client.query("select 1 as ok");
-      return { ok: r.rows?.[0]?.ok === 1 };
-    } finally {
-      client.release();
-    }
-  });
-
-  await server.start();
 }
 
 main().catch((err) => {
-  // eslint-disable-next-line no-console
   console.error("openremote-mcp-server error:", err?.stack || err);
   process.exit(1);
 });
-
-
