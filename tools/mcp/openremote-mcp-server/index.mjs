@@ -69,12 +69,42 @@ async function main() {
     }
   };
 
-  // Handle JSON-RPC requests
+  // Handle JSON-RPC requests (newline-delimited JSON)
+  let buffer = "";
   process.stdin.on('data', async (data) => {
-    try {
-      const request = JSON.parse(data.toString());
+    buffer += data.toString();
+    const lines = buffer.split(/\r?\n/);
+    buffer = lines.pop() ?? "";
+    for (const line of lines) {
+      if (!line.trim()) continue;
+      let request;
+      try {
+        request = JSON.parse(line);
+      } catch (e) {
+        // Ignore malformed partial frames; client will retry
+        continue;
+      }
       
-      if (request.method === "tools/list") {
+      if (request.method === "initialize") {
+        const response = {
+          jsonrpc: "2.0",
+          id: request.id,
+          result: {
+            protocolVersion: "2025-06-18",
+            capabilities: {
+              tools: {}
+            },
+            serverInfo: {
+              name: "openremote-mcp-server",
+              version: "0.1.0"
+            }
+          }
+        };
+        process.stdout.write(JSON.stringify(response) + '\n');
+      } else if (request.method === "notifications/initialized") {
+        // Notification: no response required
+        continue;
+      } else if (request.method === "tools/list") {
         const response = {
           jsonrpc: "2.0",
           id: request.id,
@@ -84,6 +114,20 @@ async function main() {
               ...tool
             }))
           }
+        };
+        process.stdout.write(JSON.stringify(response) + '\n');
+      } else if (request.method === "prompts/list") {
+        const response = {
+          jsonrpc: "2.0",
+          id: request.id,
+          result: { prompts: [] }
+        };
+        process.stdout.write(JSON.stringify(response) + '\n');
+      } else if (request.method === "resources/list") {
+        const response = {
+          jsonrpc: "2.0",
+          id: request.id,
+          result: { resources: [] }
         };
         process.stdout.write(JSON.stringify(response) + '\n');
       } else if (request.method === "tools/call") {
@@ -155,16 +199,6 @@ async function main() {
         };
         process.stdout.write(JSON.stringify(response) + '\n');
       }
-    } catch (error) {
-      const response = {
-        jsonrpc: "2.0",
-        id: null,
-        error: {
-          code: -32700,
-          message: "Parse error"
-        }
-      };
-      process.stdout.write(JSON.stringify(response) + '\n');
     }
   });
 }
