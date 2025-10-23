@@ -41,6 +41,8 @@ services:
     volumes:
       - postgresql-data:/var/lib/postgresql/data
       - manager-data:/storage
+    ports:
+      - "127.0.0.1:5432:5432"
 
   keycloak:
     restart: always
@@ -90,3 +92,22 @@ services:
       OR_SETUP_IMPORT_DEMO_AGENT_VELBUS:
     volumes:
       - manager-data:/storage
+
+  mcp:
+    build:
+      context: ./tools/mcp/openremote-mcp-server
+    image: openremote/mcp:${MCP_VERSION:-latest}
+    restart: always
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    command: ["sh", "-c", "tail -f /dev/null"]
+    environment:
+      PGHOST: postgresql
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: openremote
+      PGSSL: "false"
+    # No ports exposed; communicates via stdio when invoked
+    # Example host invocation: docker compose exec -T mcp node index.mjs
