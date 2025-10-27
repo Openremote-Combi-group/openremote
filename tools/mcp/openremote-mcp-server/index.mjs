@@ -28,10 +28,8 @@ function getPool() {
   return pool;
 }
 
-// Simple SELECT-only validator to keep read-only
 function assertReadOnly(sql) {
   const trimmed = sql.trim();
-  // Disallow semicolons to prevent batching
   if (trimmed.includes(";")) throw new Error("Only single SELECT statements without semicolons are allowed");
   const startsWithSelect = /^select\s/i.test(trimmed);
   if (!startsWithSelect) throw new Error("Only SELECT queries are allowed");
@@ -40,7 +38,6 @@ function assertReadOnly(sql) {
 }
 
 async function main() {
-  // Simple JSON-RPC server implementation
   const tools = {
     sql_query: {
       description: "Run a read-only SQL SELECT query against the OpenRemote PostgreSQL database.",
@@ -69,9 +66,8 @@ async function main() {
     }
   };
 
-  // Handle JSON-RPC requests (newline-delimited JSON)
-  let buffer = "";
-  process.stdin.on('data', async (data) => {
+let buffer = "";
+process.stdin.on('data', async (data) => {
     buffer += data.toString();
     const lines = buffer.split(/\r?\n/);
     buffer = lines.pop() ?? "";
@@ -81,7 +77,6 @@ async function main() {
       try {
         request = JSON.parse(line);
       } catch (e) {
-        // Ignore malformed partial frames; client will retry
         continue;
       }
       
@@ -102,7 +97,6 @@ async function main() {
         };
         process.stdout.write(JSON.stringify(response) + '\n');
       } else if (request.method === "notifications/initialized") {
-        // Notification: no response required
         continue;
       } else if (request.method === "tools/list") {
         const response = {
