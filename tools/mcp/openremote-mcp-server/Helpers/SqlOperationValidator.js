@@ -10,7 +10,7 @@ export default function validateSqlOperation(sql, allowedOperations = ['SELECT',
   }
 
   const forbiddenPatterns = [
-    /\b(DROP|ALTER|TRUNCATE|GRANT|REVOKE)\b/i,
+    /\b(CREATE|DROP|ALTER|TRUNCATE|GRANT|REVOKE)\b/i,
     /\b(VACUUM|ANALYZE)\b/i,
     /\b(MERGE|CALL|EXECUTE)\b/i
   ];

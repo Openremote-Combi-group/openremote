@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Minimal MCP server for OpenRemote with read-only PostgreSQL access.",
+  "description": "Minimal MCP server for OpenRemote with data & content PostgreSQL access.",
   "bin": {
     "openremote-mcp-server": "./index.mjs"
   },
   "scripts": {
     "start": "node ./index.mjs",
-    "check": "node -e \"require('fs').accessSync('index.mjs')\""
+    "check": "node -e \"import('fs').then(fs => fs.accessSync('index.mjs'))\""
   },
   "engines": {
     "node": ">=18"

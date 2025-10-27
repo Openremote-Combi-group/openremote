@@ -1,9 +1,6 @@
 # 1. List some public tables (SELECT via sql_query)
 Write-Output '{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "sql_query", "arguments": {"sql": "SELECT table_name FROM information_schema.tables WHERE table_schema = ''public'' LIMIT 3"}}}' | docker compose exec -T mcp node index.mjs
 
-# 2. Create test table (CREATE via sql_create)
-Write-Output '{"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "sql_create", "arguments": {"sql": "CREATE TABLE IF NOT EXISTS test_table (id SERIAL PRIMARY KEY, name VARCHAR(100), created_at TIMESTAMP DEFAULT NOW())"}}}' | docker compose exec -T mcp node index.mjs
-
 # 3. Insert test data (INSERT via sql_insert)
 Write-Output '{"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "sql_insert", "arguments": {"sql": "INSERT INTO test_table (name) VALUES (''Test Item 1'')"}}}' | docker compose exec -T mcp node index.mjs
 
