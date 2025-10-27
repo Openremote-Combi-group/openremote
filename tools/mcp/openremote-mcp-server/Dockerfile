@@ -6,6 +6,8 @@ COPY package.json ./
 RUN npm ci --omit=dev || npm install --omit=dev
 
 COPY index.mjs ./
+COPY Models/ ./Models/
+COPY Helpers/ ./Helpers/
 
 ENV NODE_ENV=production
 
