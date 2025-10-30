@@ -316,7 +316,7 @@ export class OrRuleViewer extends translate(i18next)(LitElement) {
                     content: html`
                         <or-mwc-input class="button" .type="${InputType.BUTTON}" label="send"></or-mwc-input>`,
                     action: () => {
-                        // this.dispatchEvent(new CustomEvent("ask-marc", {detail: this._askMarcText}));
+                        this.dispatchEvent(new CustomEvent("ask-marc", {detail: this._askMarcText}));
                         dialog.close();
                     }
                 }

@@ -1,0 +1,23 @@
+{
+  "name": "openremote-mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Minimal MCP server for OpenRemote with data & content PostgreSQL access.",
+  "bin": {
+    "openremote-mcp-server": "./index.mjs"
+  },
+  "scripts": {
+    "start": "node ./index.mjs",
+    "check": "node -e \"import('fs').then(fs => fs.accessSync('index.mjs'))\""
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.6.1",
+    "pg": "^8.12.0"
+  }
+}
+
+
