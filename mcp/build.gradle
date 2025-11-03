@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group = 'io.openremote'
+version = '1.2.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Core MCP SDK
+    implementation platform("io.modelcontextprotocol.sdk:mcp-bom:0.15.0")
+
+    // now add modules without version
+    implementation "io.modelcontextprotocol.sdk:mcp"
+    implementation "io.modelcontextprotocol.sdk:mcp-spring-webflux"   // if using WebFlux transport
+    // or
+    implementation "io.modelcontextprotocol.sdk:mcp-spring-webmvc"
+}
+
+test {
+    useJUnitPlatform()
+}
