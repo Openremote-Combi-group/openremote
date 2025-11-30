@@ -171,6 +171,8 @@ public final class ValueType {
 
     public static final ValueDescriptor<GeoJSONPoint> GEO_JSON_POINT = new ValueDescriptor<>("GEO_JSONPoint", GeoJSONPoint.class);
 
+    public static final ValueDescriptor<GyroData> GYRO_DATA = new ValueDescriptor<>("gyroData", GyroData.class);
+
     public static final ValueDescriptor<CalendarEvent> CALENDAR_EVENT = new ValueDescriptor<>("calendarEvent", CalendarEvent.class);
 
     public static final ValueDescriptor<AttributeExecuteStatus> EXECUTION_STATUS = new ValueDescriptor<>("executionStatus", AttributeExecuteStatus.class);
