@@ -26,9 +26,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Represents gyroscope data with x, y, z coordinates
+ * Represents a location in 3D space using meters (room coordinates)
  */
-public class GyroData implements Serializable {
+public class LocationMeters implements Serializable {
 
     @JsonProperty("x")
     protected double x;
@@ -40,13 +40,13 @@ public class GyroData implements Serializable {
     protected double z;
 
     // Required no-arg constructor for Jackson
-    protected GyroData() {
+    protected LocationMeters() {
     }
 
     @JsonCreator
-    public GyroData(@JsonProperty("x") double x, 
-                    @JsonProperty("y") double y, 
-                    @JsonProperty("z") double z) {
+    public LocationMeters(@JsonProperty("x") double x, 
+                         @JsonProperty("y") double y, 
+                         @JsonProperty("z") double z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -80,10 +80,10 @@ public class GyroData implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GyroData gyroData = (GyroData) o;
-        return Double.compare(gyroData.x, x) == 0 &&
-               Double.compare(gyroData.y, y) == 0 &&
-               Double.compare(gyroData.z, z) == 0;
+        LocationMeters that = (LocationMeters) o;
+        return Double.compare(that.x, x) == 0 &&
+               Double.compare(that.y, y) == 0 &&
+               Double.compare(that.z, z) == 0;
     }
 
     @Override
@@ -93,20 +93,13 @@ public class GyroData implements Serializable {
 
     @Override
     public String toString() {
-        return "GyroData{" +
+        return "LocationMeters{" +
             "x=" + x +
             ", y=" + y +
             ", z=" + z +
             '}';
     }
 }
-
-
-
-
-
-
-
 
 
 

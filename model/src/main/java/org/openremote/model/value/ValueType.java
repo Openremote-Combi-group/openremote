@@ -173,6 +173,10 @@ public final class ValueType {
 
     public static final ValueDescriptor<GyroData> GYRO_DATA = new ValueDescriptor<>("gyroData", GyroData.class);
 
+    public static final ValueDescriptor<LocationMeters> LOCATION_METERS = new ValueDescriptor<>("locationMeters", LocationMeters.class);
+
+    public static final ValueDescriptor<ObjectMap> TAG_DETECTIONS = new ValueDescriptor<>("tagDetections", ObjectMap.class);
+
     public static final ValueDescriptor<CalendarEvent> CALENDAR_EVENT = new ValueDescriptor<>("calendarEvent", CalendarEvent.class);
 
     public static final ValueDescriptor<AttributeExecuteStatus> EXECUTION_STATUS = new ValueDescriptor<>("executionStatus", AttributeExecuteStatus.class);

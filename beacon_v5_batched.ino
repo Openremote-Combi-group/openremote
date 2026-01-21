@@ -4,26 +4,32 @@
 #include "BLEDevice.h"
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <ArduinoJson.h>
 
 // --- WiFi Credentials ---
 const char *ssid = "WiFii";
 const char *password = "12345678";
 
 // --- MQTT Broker Details (Your Raspberry Pi 4) ---
-const char *mqtt_server = "10.191.208.71";
+const char *mqtt_server = "10.56.150.70";
 const int mqtt_port = 1883;
 
 // --- OpenRemote MQTT Configuration ---
 const char* mqtt_username = "master:mqtt";  // Format: {realm}:{service-username}
-const char* mqtt_password = "cB2zFq3e53XR1cSKsbt8lR4ZxozCD30q";  // Your service user secret
+const char* mqtt_password = "Dfoxm0dCGLQKgTQMpHckbVrFAsXc5Q9P";  // Your service user secret
 const char* mqtt_realm = "master";
 const char* mqtt_client_id = "esp32-beacon-001";  // Unique client ID for this device
 
+// --- BEACON Asset ID (THIS beacon's own asset in OpenRemote) ---
+// const char* beacon_asset_id = "4FI96rotb2ZDdoIzbTgFy5";  // Replace with your beacon's asset ID
+// const char* beacon_asset_id = "5agtMa7iX8HfFnP5lkI30n";  // Replace with your beacon's asset ID
+const char* beacon_asset_id = "3w98uTo5uUPD1574Z0dEem";  // Replace with your beacon's asset ID
+
 // --- Asset Pool Configuration ---
-// List of available asset IDs in OpenRemote
+// List of available TAG asset IDs in OpenRemote
 const char* available_assets[] = {
-  "6UGj4OxCfhtOxqHaeh22Up",
-  "4qwfK0RjA8YF2bVJZUrrZH"
+  "76n5e5FQbJVWRPixedTcTp",
+  "4sMvO1TCOlTQ7971byMtHX"
 };
 const int MAX_ASSETS = 2;  // Number of available assets
 
@@ -118,7 +124,9 @@ static void notifyCallback(BLERemoteCharacteristic *pBLERemoteCharacteristic, ui
 }
 
 class MyClientCallback : public BLEClientCallbacks {
-  void onConnect(BLEClient *pclient) {}
+  void onConnect(BLEClient *pclient) {
+    // rssiValue = pclient->getRssi();
+  }
 
   void onDisconnect(BLEClient *pclient) {
     connected = false;
@@ -484,31 +492,52 @@ String getAssetIdForMac(String macAddress) {
   return "";  // Return empty string if no assets available
 }
 
-// Helper function to publish to OpenRemote MQTT topic
-bool publishToOpenRemote(const char* attributeName, String value) {
-  // Use the current asset ID
-  if (currentAssetId == "") {
-    Serial.println("ERROR: No asset ID assigned!");
-    return false;
-  }
+// Publish batched tagDetections to beacon asset (V5 BATCHED VERSION)
+bool publishTagDetections(String macAddress, String assetId, int rssi, 
+                          uint16_t temp, uint16_t humid, 
+                          uint16_t gx, uint16_t gy, uint16_t gz) {
   
-  // Build topic: {realm}/{clientId}/writeattributevalue/{attributeName}/{assetId}
-  String topic = String(mqtt_realm) + "/" + String(mqtt_client_id) + "/writeattributevalue/" + String(attributeName) + "/" + currentAssetId;
+  // Build JSON for tagDetections attribute
+  // Format: {"MAC_ADDRESS": {"assetId": "...", "rssi": -65, "temperature": 2350, ...}}
+  DynamicJsonDocument doc(2048);
+  JsonObject root = doc.to<JsonObject>();
   
-  Serial.print("Publishing to topic: ");
-  Serial.println(topic);
-  Serial.print("Value: ");
-  Serial.println(value);
+  // Create nested object for this tag
+  JsonObject tagObj = root.createNestedObject(macAddress);
+  tagObj["assetId"] = assetId;
+  tagObj["rssi"] = rssi;
+  tagObj["temperature"] = temp;
+  tagObj["humidity"] = humid;
   
-  bool result = client.publish(topic.c_str(), value.c_str());
+  JsonObject gyroObj = tagObj.createNestedObject("gyro");
+  gyroObj["x"] = gx;
+  gyroObj["y"] = gy;
+  gyroObj["z"] = gz;
+  
+  tagObj["timestamp"] = millis();
+  
+  // Serialize to string
+  String jsonPayload;
+  serializeJson(root, jsonPayload);
+  
+  // Build topic: {realm}/{clientId}/writeattributevalue/tagDetections/{beaconAssetId}
+  String topic = String(mqtt_realm) + "/" + String(mqtt_client_id) + 
+                 "/writeattributevalue/tagDetections/" + String(beacon_asset_id);
+  
+  Serial.println("\n========================================");
+  Serial.println("Publishing batched tagDetections to Beacon Asset");
+  Serial.println("========================================");
+  Serial.println("Beacon Asset ID: " + String(beacon_asset_id));
+  Serial.println("Topic: " + topic);
+  Serial.println("Payload: " + jsonPayload);
+  Serial.println("========================================");
+  
+  bool result = client.publish(topic.c_str(), jsonPayload.c_str());
   
   if (result) {
-    Serial.print("✓ Published ");
-    Serial.print(attributeName);
-    Serial.println(" successfully");
+    Serial.println("✓ Published tagDetections successfully");
   } else {
-    Serial.print("✗ Failed to publish ");
-    Serial.println(attributeName);
+    Serial.println("✗ Failed to publish tagDetections");
   }
   
   return result;
@@ -518,10 +547,11 @@ void setup() {
   Serial.begin(115200);
   Serial.println("\n\n========================================");
   Serial.println("  ESP32 OpenRemote MQTT Client");
-  Serial.println("  BLE Beacon Scanner v4");
-  Serial.println("  Multi-Asset Mapper");
+  Serial.println("  BLE Beacon Scanner v5 (Batched)");
+  Serial.println("  Publishes to Beacon Asset");
   Serial.println("========================================");
-  Serial.println("Available Assets: " + String(MAX_ASSETS));
+  Serial.println("Beacon Asset ID: " + String(beacon_asset_id));
+  Serial.println("Available Tag Assets: " + String(MAX_ASSETS));
   for (int i = 0; i < MAX_ASSETS; i++) {
     Serial.println("  " + String(i+1) + ". " + String(available_assets[i]));
   }
@@ -630,7 +660,7 @@ void loop() {
     }
 
     Serial.println("\n========================================");
-    Serial.println("Publishing sensor data to OpenRemote...");
+    Serial.println("Preparing sensor data for publishing...");
     Serial.println("========================================");
     Serial.println("Tag Info:");
     Serial.println("  MAC Address: " + deviceMacAddress);
@@ -641,34 +671,15 @@ void loop() {
     Serial.println("  Gyro X: " + String(gyroX_Value));
     Serial.println("  Gyro Y: " + String(gyroY_Value));
     Serial.println("  Gyro Z: " + String(gyroZ_Value));
+    Serial.println("  RSSI: " + String(rssiValue) + " dBm");
     Serial.println("----------------------------------------");
     
-    // Publish each attribute separately to OpenRemote
-    // Note: OpenRemote MQTT requires one attribute per message
-    
-    // 1. Publish Temperature
-    publishToOpenRemote("temperature", String(tempValue));
-    delay(100); // Small delay between publishes
-    
-    // 2. Publish Humidity
-    publishToOpenRemote("humidity", String(humidValue));
-    delay(100);
-    
-    // 3. Publish Gyro as JSON object (GyroData type in OpenRemote)
-    String gyroJson = "{";
-    gyroJson += "\"x\":" + String(gyroX_Value) + ",";
-    gyroJson += "\"y\":" + String(gyroY_Value) + ",";
-    gyroJson += "\"z\":" + String(gyroZ_Value);
-    gyroJson += "}";
-    publishToOpenRemote("gyro", gyroJson);
-    delay(100);
-    
-    // 4. Publish signal strength (WiFi RSSI)
-    int rssi = WiFi.RSSI();
-    publishToOpenRemote("signalStrength", String(rssi));
+    // Publish batched detection to beacon's tagDetections attribute
+    publishTagDetections(deviceMacAddress, currentAssetId, rssiValue,
+                        tempValue, humidValue, 
+                        gyroX_Value, gyroY_Value, gyroZ_Value);
     
     Serial.println("========================================");
-    Serial.println("All attributes published!");
     Serial.println("TAG: " + deviceMacAddress + " -> ASSET: " + currentAssetId);
     Serial.println("========================================\n");
     
@@ -702,3 +713,5 @@ void loop() {
 
   delay(100);
 }
+
+

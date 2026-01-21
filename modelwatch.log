@@ -1,0 +1,593 @@
+
+> Configure project :
+File encryption plugin config found, configuring git pre commit hook and decrypt task dependency
+
+> Configure project :ui
+demoJar
+
+> Task :ui:component:rest:processResources NO-SOURCE
+> Task :agent:processResources UP-TO-DATE
+> Task :container:processResources UP-TO-DATE
+> Task :model-util:processResources NO-SOURCE
+> Task :ui:component:model:processResources NO-SOURCE
+> Task :ui:component:rest:processTestResources NO-SOURCE
+> Task :ui:component:model:processTestResources NO-SOURCE
+> Task :model:compileJava UP-TO-DATE
+> Task :model:processResources UP-TO-DATE
+> Task :model:classes UP-TO-DATE
+> Task :model:jar UP-TO-DATE
+> Task :container:compileJava UP-TO-DATE
+> Task :container:compileGroovy NO-SOURCE
+> Task :container:classes UP-TO-DATE
+> Task :container:jar UP-TO-DATE
+> Task :agent:compileJava UP-TO-DATE
+> Task :agent:compileGroovy NO-SOURCE
+> Task :agent:classes UP-TO-DATE
+> Task :agent:jar UP-TO-DATE
+> Task :model-util:compileJava UP-TO-DATE
+> Task :model-util:classes UP-TO-DATE
+> Task :model-util:jar UP-TO-DATE
+> Task :ui:component:model:compileJava NO-SOURCE
+> Task :ui:component:rest:compileJava NO-SOURCE
+> Task :ui:component:model:compileGroovy NO-SOURCE
+> Task :ui:component:model:classes UP-TO-DATE
+> Task :ui:component:rest:compileGroovy NO-SOURCE
+> Task :ui:component:rest:classes UP-TO-DATE
+> Task :ui:component:rest:jar UP-TO-DATE
+> Task :ui:component:rest:assemble UP-TO-DATE
+> Task :ui:component:model:jar UP-TO-DATE
+> Task :ui:component:model:assemble UP-TO-DATE
+> Task :ui:component:rest:compileTestJava NO-SOURCE
+> Task :ui:component:model:compileTestJava NO-SOURCE
+> Task :ui:component:rest:compileTestGroovy NO-SOURCE
+> Task :ui:component:model:compileTestGroovy NO-SOURCE
+> Task :ui:component:rest:testClasses UP-TO-DATE
+> Task :ui:component:model:testClasses UP-TO-DATE
+> Task :ui:component:rest:test NO-SOURCE
+> Task :ui:component:rest:check UP-TO-DATE
+> Task :ui:component:model:test NO-SOURCE
+> Task :ui:component:model:check UP-TO-DATE
+
+> Task :yarnInstall
+➤ YN0000: · Yarn 4.10.2
+➤ YN0000: ┌ Resolution step
+➤ YN0000: └ Completed in 0s 385ms
+➤ YN0000: ┌ Post-resolution validation
+➤ YN0060: │ eslint is listed by your project with version 8.56.0 (pfa5c48), which doesn't satisfy what eslint-config-standard and other dependencies request (^7.12.1).
+➤ YN0060: │ eslint-plugin-promise is listed by your project with version 6.1.1 (p1db79a), which doesn't satisfy what eslint-config-standard requests (^4.2.1 || ^5.0.0).
+➤ YN0002: │ @openremote/util@workspace:ui/util doesn't provide lit (pc28dad), requested by @wc-toolkit/storybook-helpers.
+➤ YN0002: │ @openremote/util@workspace:ui/util doesn't provide storybook (pcf93a5), requested by @wc-toolkit/storybook-helpers.
+➤ YN0086: │ Some peer dependencies are incorrectly met by your project; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code.
+➤ YN0086: │ Some peer dependencies are incorrectly met by dependencies; run yarn explain peer-requirements for details.
+➤ YN0000: └ Completed
+➤ YN0000: ┌ Fetch step
+➤ YN0000: └ Completed in 2s 224ms
+➤ YN0000: ┌ Link step
+
+> Task :ui:component:model:generateTypeScript
+Running TypeScriptGenerator version 3.2.1263
+Loading class CustomTypeProcessor
+Loading class org.openremote.model.util.AssetModelInfoExtension
+Loading class CustomExtension
+Loading class JsonSerializeExtension
+Loading class org.checkerframework.checker.nullness.qual.Nullable
+Loading class com.fasterxml.jackson.datatype.jdk8.Jdk8Module
+Loading class com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+Loading class com.fasterxml.jackson.module.paramnames.ParameterNamesModule
+Loading class com.fasterxml.jackson.databind.node.ObjectNode
+Loading class java.lang.Class
+Loading class org.openremote.model.attribute.MetaItem
+Scanning classpath
+Scanning finished in 1.56 seconds. Total number of classes: 71166.
+Found 482 classes matching pattern.
+Parsing 'org.openremote.model.PersistenceEvent'
+Parsing 'org.openremote.model.PersistenceEvent$Cause'
+Parsing 'org.openremote.model.alarm.Alarm'
+Parsing 'org.openremote.model.alarm.Alarm$Severity'
+Parsing 'org.openremote.model.alarm.Alarm$Source'
+Parsing 'org.openremote.model.alarm.Alarm$Status'
+Parsing 'org.openremote.model.alarm.AlarmAssetLink'
+Parsing 'org.openremote.model.alarm.AlarmAssetLink$Id'
+Parsing 'org.openremote.model.alarm.AlarmEvent'
+Parsing JAX-RS resource: org.openremote.model.alarm.AlarmResource
+Parsing 'org.openremote.model.alarm.SentAlarm'
+Parsing JAX-RS resource: org.openremote.model.apps.AppResource
+Parsing 'org.openremote.model.apps.ConsoleAppConfig'
+Parsing 'org.openremote.model.apps.ConsoleAppConfig$AppLink'
+Parsing 'org.openremote.model.apps.ConsoleAppConfig$MenuPosition'
+Parsing 'org.openremote.model.asset.Asset'
+Parsing 'org.openremote.model.asset.AssetDescriptor'
+Parsing 'org.openremote.model.asset.AssetEvent'
+Parsing 'org.openremote.model.asset.AssetEvent$Cause'
+Parsing 'org.openremote.model.asset.AssetFilter'
+Parsing 'org.openremote.model.asset.AssetInfo'
+Parsing JAX-RS resource: org.openremote.model.asset.AssetModelResource
+Parsing JAX-RS resource: org.openremote.model.asset.AssetResource
+Parsing 'org.openremote.model.asset.AssetTree'
+Parsing 'org.openremote.model.asset.AssetTreeAsset'
+Parsing 'org.openremote.model.asset.AssetTreeEvent'
+Parsing 'org.openremote.model.asset.AssetTreeNode'
+Parsing 'org.openremote.model.asset.AssetTypeInfo'
+Parsing 'org.openremote.model.asset.AssetsEvent'
+Parsing 'org.openremote.model.asset.ElectricityConsumerDemandResponseType'
+Parsing 'org.openremote.model.asset.HasAssetQuery'
+Parsing 'org.openremote.model.asset.ReadAssetEvent'
+Parsing 'org.openremote.model.asset.ReadAssetTreeEvent'
+Parsing 'org.openremote.model.asset.ReadAssetsEvent'
+Parsing 'org.openremote.model.asset.ReadAttributeEvent'
+Parsing 'org.openremote.model.asset.UserAssetLink'
+Parsing 'org.openremote.model.asset.UserAssetLink$Id'
+Parsing 'org.openremote.model.asset.agent.Agent'
+Parsing 'org.openremote.model.asset.agent.AgentDescriptor'
+Parsing 'org.openremote.model.asset.agent.AgentLink'
+Parsing JAX-RS resource: org.openremote.model.asset.agent.AgentResource
+Parsing 'org.openremote.model.asset.agent.ConnectionStatus'
+Parsing 'org.openremote.model.asset.agent.Protocol'
+Parsing 'org.openremote.model.asset.impl.BuildingAsset'
+Parsing 'org.openremote.model.asset.impl.CityAsset'
+Parsing 'org.openremote.model.asset.impl.ConsoleAsset'
+Parsing 'org.openremote.model.asset.impl.DoorAsset'
+Parsing 'org.openremote.model.asset.impl.ElectricVehicleAsset'
+Parsing 'org.openremote.model.asset.impl.ElectricVehicleAsset$EnergyType'
+Parsing 'org.openremote.model.asset.impl.ElectricVehicleFleetGroupAsset'
+Parsing 'org.openremote.model.asset.impl.ElectricityAsset'
+Parsing 'org.openremote.model.asset.impl.ElectricityBatteryAsset'
+Parsing 'org.openremote.model.asset.impl.ElectricityChargerAsset'
+Parsing 'org.openremote.model.asset.impl.ElectricityChargerAsset$ConnectorType'
+Parsing 'org.openremote.model.asset.impl.ElectricityConsumerAsset'
+Parsing 'org.openremote.model.asset.impl.ElectricityProducerAsset'
+Parsing 'org.openremote.model.asset.impl.ElectricityProducerSolarAsset'
+Parsing 'org.openremote.model.asset.impl.ElectricityProducerSolarAsset$PanelOrientation'
+Parsing 'org.openremote.model.asset.impl.ElectricityProducerWindAsset'
+Parsing 'org.openremote.model.asset.impl.ElectricityStorageAsset'
+Parsing 'org.openremote.model.asset.impl.ElectricitySupplierAsset'
+Parsing 'org.openremote.model.asset.impl.EnergyOptimisationAsset'
+Parsing 'org.openremote.model.asset.impl.EnvironmentSensorAsset'
+Parsing 'org.openremote.model.asset.impl.GatewayAsset'
+Parsing 'org.openremote.model.asset.impl.GroundwaterSensorAsset'
+Parsing 'org.openremote.model.asset.impl.GroupAsset'
+Parsing 'org.openremote.model.asset.impl.LightAsset'
+Parsing 'org.openremote.model.asset.impl.MicrophoneAsset'
+Parsing 'org.openremote.model.asset.impl.ParkingAsset'
+Parsing 'org.openremote.model.asset.impl.PeopleCounterAsset'
+Parsing 'org.openremote.model.asset.impl.PlugAsset'
+Parsing 'org.openremote.model.asset.impl.PresenceSensorAsset'
+Parsing 'org.openremote.model.asset.impl.RoomAsset'
+Parsing 'org.openremote.model.asset.impl.ShipAsset'
+Parsing 'org.openremote.model.asset.impl.ThermostatAsset'
+Parsing 'org.openremote.model.asset.impl.ThingAsset'
+Parsing 'org.openremote.model.asset.impl.UnknownAsset'
+Parsing 'org.openremote.model.asset.impl.VentilationAsset'
+Parsing 'org.openremote.model.asset.impl.WeatherAsset'
+Parsing 'org.openremote.model.attribute.Attribute'
+Parsing 'org.openremote.model.attribute.AttributeEvent'
+Parsing 'org.openremote.model.attribute.AttributeExecuteStatus'
+Parsing 'org.openremote.model.attribute.AttributeInfo'
+Parsing 'org.openremote.model.attribute.AttributeLink'
+Parsing 'org.openremote.model.attribute.AttributeLink$ConverterType'
+Parsing 'org.openremote.model.attribute.AttributeRef'
+Parsing 'org.openremote.model.attribute.AttributeState'
+Parsing 'org.openremote.model.attribute.AttributeWriteFailure'
+Parsing 'org.openremote.model.attribute.AttributeWriteResult'
+Parsing 'org.openremote.model.auth.OAuthClientCredentialsGrant'
+Parsing 'org.openremote.model.auth.OAuthGrant'
+Parsing 'org.openremote.model.auth.OAuthPasswordGrant'
+Parsing 'org.openremote.model.auth.OAuthRefreshTokenGrant'
+Parsing 'org.openremote.model.auth.UsernamePassword'
+Parsing 'org.openremote.model.calendar.CalendarEvent'
+Parsing 'org.openremote.model.console.ConsoleProvider'
+Parsing 'org.openremote.model.console.ConsoleRegistration'
+Parsing JAX-RS resource: org.openremote.model.console.ConsoleResource
+Parsing 'org.openremote.model.dashboard.Dashboard'
+Parsing 'org.openremote.model.dashboard.DashboardAccess'
+Parsing 'org.openremote.model.dashboard.DashboardGridItem'
+Parsing 'org.openremote.model.dashboard.DashboardRefreshInterval'
+Parsing JAX-RS resource: org.openremote.model.dashboard.DashboardResource
+Parsing 'org.openremote.model.dashboard.DashboardScalingPreset'
+Parsing 'org.openremote.model.dashboard.DashboardScreenPreset'
+Parsing 'org.openremote.model.dashboard.DashboardTemplate'
+Parsing 'org.openremote.model.dashboard.DashboardWidget'
+Parsing 'org.openremote.model.datapoint.AssetDatapoint'
+Parsing JAX-RS resource: org.openremote.model.datapoint.AssetDatapointResource
+Parsing 'org.openremote.model.datapoint.AssetPredictedDatapoint'
+Parsing JAX-RS resource: org.openremote.model.datapoint.AssetPredictedDatapointResource
+Parsing 'org.openremote.model.datapoint.Datapoint'
+Parsing 'org.openremote.model.datapoint.DatapointID'
+Parsing 'org.openremote.model.datapoint.DatapointInterval'
+Parsing 'org.openremote.model.datapoint.DatapointPeriod'
+Parsing 'org.openremote.model.datapoint.DatapointQueryTooLargeException'
+Parsing 'org.openremote.model.datapoint.ValueDatapoint'
+Parsing 'org.openremote.model.datapoint.query.AssetDatapointAllQuery'
+Parsing 'org.openremote.model.datapoint.query.AssetDatapointIntervalQuery'
+Parsing 'org.openremote.model.datapoint.query.AssetDatapointIntervalQuery$Formula'
+Parsing 'org.openremote.model.datapoint.query.AssetDatapointLTTBQuery'
+Parsing 'org.openremote.model.datapoint.query.AssetDatapointNearestQuery'
+Parsing 'org.openremote.model.datapoint.query.AssetDatapointQuery'
+Parsing 'org.openremote.model.event.Event'
+Parsing 'org.openremote.model.event.RespondableEvent'
+Parsing 'org.openremote.model.event.TriggeredEventSubscription'
+Parsing 'org.openremote.model.event.bus.EventBus'
+Parsing 'org.openremote.model.event.bus.EventListener'
+Parsing 'org.openremote.model.event.bus.EventRegistration'
+Parsing 'org.openremote.model.event.bus.VetoEventException'
+Parsing 'org.openremote.model.event.shared.CancelEventSubscription'
+Parsing 'org.openremote.model.event.shared.EventSubscription'
+Parsing 'org.openremote.model.event.shared.RealmScopedEvent'
+Parsing 'org.openremote.model.event.shared.SharedEvent'
+Parsing 'org.openremote.model.event.shared.UnauthorizedEventSubscription'
+Parsing 'org.openremote.model.file.FileInfo'
+Parsing 'org.openremote.model.gateway.GatewayAssetSyncRule'
+Parsing 'org.openremote.model.gateway.GatewayAttributeFilter'
+Parsing 'org.openremote.model.gateway.GatewayCapabilitiesRequestEvent'
+Parsing 'org.openremote.model.gateway.GatewayCapabilitiesResponseEvent'
+Parsing JAX-RS resource: org.openremote.model.gateway.GatewayClientResource
+Parsing 'org.openremote.model.gateway.GatewayConnection'
+Parsing 'org.openremote.model.gateway.GatewayConnectionStatusEvent'
+Parsing 'org.openremote.model.gateway.GatewayDisconnectEvent'
+Parsing 'org.openremote.model.gateway.GatewayDisconnectEvent$Reason'
+Parsing JAX-RS resource: org.openremote.model.gateway.GatewayServiceResource
+Parsing 'org.openremote.model.gateway.GatewayTunnelInfo'
+Parsing 'org.openremote.model.gateway.GatewayTunnelInfo$Type'
+Parsing 'org.openremote.model.gateway.GatewayTunnelStartRequestEvent'
+Parsing 'org.openremote.model.gateway.GatewayTunnelStartResponseEvent'
+Parsing 'org.openremote.model.gateway.GatewayTunnelStopRequestEvent'
+Parsing 'org.openremote.model.gateway.GatewayTunnelStopResponseEvent'
+Parsing 'org.openremote.model.geo.GeoJSON'
+Parsing 'org.openremote.model.geo.GeoJSONFeature'
+Parsing 'org.openremote.model.geo.GeoJSONFeatureCollection'
+Parsing 'org.openremote.model.geo.GeoJSONGeometry'
+Parsing 'org.openremote.model.geo.GeoJSONPoint'
+Parsing 'org.openremote.model.http.HTTPMethod'
+Parsing 'org.openremote.model.http.RequestParams'
+Parsing 'org.openremote.model.mail.MailMessage'
+Parsing 'org.openremote.model.manager.Auth'
+Parsing JAX-RS resource: org.openremote.model.manager.ConfigurationResource
+Parsing 'org.openremote.model.manager.EventProviderType'
+Parsing 'org.openremote.model.manager.ManagerAppConfig'
+Parsing 'org.openremote.model.manager.ManagerAppRealmConfig'
+Parsing 'org.openremote.model.manager.ManagerAppRealmNotificationConfig'
+Parsing 'org.openremote.model.manager.ManagerConfig'
+Parsing 'org.openremote.model.manager.MapConfig'
+Parsing 'org.openremote.model.manager.MapRealmConfig'
+Parsing 'org.openremote.model.manager.MapSourceConfig'
+Parsing 'org.openremote.model.manager.MapType'
+Parsing 'org.openremote.model.map.GeoJsonConfig'
+Parsing JAX-RS resource: org.openremote.model.map.MapResource
+Parsing 'org.openremote.model.notification.AbstractNotificationMessage'
+Parsing 'org.openremote.model.notification.EmailNotificationMessage'
+Parsing 'org.openremote.model.notification.EmailNotificationMessage$Recipient'
+Parsing 'org.openremote.model.notification.LocalizedNotificationMessage'
+Parsing 'org.openremote.model.notification.Notification'
+Parsing 'org.openremote.model.notification.Notification$Source'
+Parsing 'org.openremote.model.notification.Notification$Target'
+Parsing 'org.openremote.model.notification.Notification$TargetType'
+Parsing JAX-RS resource: org.openremote.model.notification.NotificationResource
+Parsing 'org.openremote.model.notification.NotificationSendResult'
+Parsing 'org.openremote.model.notification.PushNotificationAction'
+Parsing 'org.openremote.model.notification.PushNotificationButton'
+Parsing 'org.openremote.model.notification.PushNotificationMessage'
+Parsing 'org.openremote.model.notification.PushNotificationMessage$MessagePriority'
+Parsing 'org.openremote.model.notification.PushNotificationMessage$TargetType'
+Parsing 'org.openremote.model.notification.RepeatFrequency'
+Parsing 'org.openremote.model.notification.SentNotification'
+Parsing 'org.openremote.model.persistence.InstantEpochConverter'
+Parsing 'org.openremote.model.persistence.LTreeType'
+Parsing 'org.openremote.model.persistence.PasswordPolicyConverter'
+Parsing 'org.openremote.model.protocol.ProtocolAssetService'
+Parsing 'org.openremote.model.protocol.ProtocolDiscoveryAssetFoundEvent'
+Parsing 'org.openremote.model.protocol.ProtocolDiscoveryImportRequestEvent'
+Parsing 'org.openremote.model.protocol.ProtocolDiscoveryInstanceFoundEvent'
+Parsing 'org.openremote.model.protocol.ProtocolDiscoveryStartRequestEvent'
+Parsing 'org.openremote.model.protocol.ProtocolDiscoveryStartStopResponseEvent'
+Parsing 'org.openremote.model.protocol.ProtocolDiscoveryStopRequestEvent'
+Parsing 'org.openremote.model.protocol.mqtt.Topic'
+Parsing 'org.openremote.model.provisioning.ErrorResponseMessage'
+Parsing 'org.openremote.model.provisioning.ErrorResponseMessage$Error'
+Parsing 'org.openremote.model.provisioning.ProvisioningConfig'
+Parsing 'org.openremote.model.provisioning.ProvisioningMessage'
+Parsing JAX-RS resource: org.openremote.model.provisioning.ProvisioningResource
+Parsing 'org.openremote.model.provisioning.SuccessResponseMessage'
+Parsing 'org.openremote.model.provisioning.X509ProvisioningConfig'
+Parsing 'org.openremote.model.provisioning.X509ProvisioningData'
+Parsing 'org.openremote.model.provisioning.X509ProvisioningMessage'
+Parsing 'org.openremote.model.query.AssetQuery'
+Parsing 'org.openremote.model.query.AssetQuery$Access'
+Parsing 'org.openremote.model.query.AssetQuery$Match'
+Parsing 'org.openremote.model.query.AssetQuery$Operator'
+Parsing 'org.openremote.model.query.AssetQuery$OrderBy'
+Parsing 'org.openremote.model.query.AssetQuery$OrderBy$Property'
+Parsing 'org.openremote.model.query.AssetQuery$Select'
+Parsing 'org.openremote.model.query.DashboardQuery'
+Parsing 'org.openremote.model.query.DashboardQuery$AssetAccess'
+Parsing 'org.openremote.model.query.DashboardQuery$AssetConditions'
+Parsing 'org.openremote.model.query.DashboardQuery$ConditionMinAmount'
+Parsing 'org.openremote.model.query.DashboardQuery$Conditions'
+Parsing 'org.openremote.model.query.DashboardQuery$DashboardConditions'
+Parsing 'org.openremote.model.query.DashboardQuery$Select'
+Parsing 'org.openremote.model.query.LogicGroup'
+Parsing 'org.openremote.model.query.LogicGroup$Operator'
+Parsing 'org.openremote.model.query.RulesetQuery'
+Parsing 'org.openremote.model.query.UserQuery'
+Parsing 'org.openremote.model.query.UserQuery$AttributeValuePredicate'
+Parsing 'org.openremote.model.query.UserQuery$OrderBy'
+Parsing 'org.openremote.model.query.UserQuery$OrderBy$Property'
+Parsing 'org.openremote.model.query.UserQuery$Select'
+Parsing 'org.openremote.model.query.filter.ArrayPredicate'
+Parsing 'org.openremote.model.query.filter.AttributePredicate'
+Parsing 'org.openremote.model.query.filter.BooleanPredicate'
+Parsing 'org.openremote.model.query.filter.CalendarEventPredicate'
+Parsing 'org.openremote.model.query.filter.DateTimePredicate'
+Parsing 'org.openremote.model.query.filter.GeofencePredicate'
+Parsing 'org.openremote.model.query.filter.LocationAttributePredicate'
+Parsing 'org.openremote.model.query.filter.NameValuePredicate'
+Parsing 'org.openremote.model.query.filter.NameValuePredicate$Path'
+Parsing 'org.openremote.model.query.filter.NumberPredicate'
+Parsing 'org.openremote.model.query.filter.ParentPredicate'
+Parsing 'org.openremote.model.query.filter.PathPredicate'
+Parsing 'org.openremote.model.query.filter.RadialGeofencePredicate'
+Parsing 'org.openremote.model.query.filter.RealmPredicate'
+Parsing 'org.openremote.model.query.filter.RectangularGeofencePredicate'
+Parsing 'org.openremote.model.query.filter.StringPredicate'
+Parsing 'org.openremote.model.query.filter.ValueAnyPredicate'
+Parsing 'org.openremote.model.query.filter.ValueEmptyPredicate'
+Parsing 'org.openremote.model.query.filter.ValuePredicate'
+Parsing 'org.openremote.model.rules.AssetRuleset'
+Parsing 'org.openremote.model.rules.GlobalRuleset'
+Parsing 'org.openremote.model.rules.RealmRuleset'
+Parsing 'org.openremote.model.rules.RulesClock'
+Parsing 'org.openremote.model.rules.RulesEngineInfo'
+Parsing 'org.openremote.model.rules.RulesEngineStatus'
+Parsing 'org.openremote.model.rules.RulesEngineStatusEvent'
+Parsing JAX-RS resource: org.openremote.model.rules.RulesResource
+Parsing 'org.openremote.model.rules.Ruleset'
+Parsing 'org.openremote.model.rules.Ruleset$Lang'
+Parsing 'org.openremote.model.rules.RulesetChangedEvent'
+Parsing 'org.openremote.model.rules.RulesetStatus'
+Parsing 'org.openremote.model.rules.SunPositionTrigger'
+Parsing 'org.openremote.model.rules.SunPositionTrigger$Position'
+Parsing 'org.openremote.model.rules.flow.AttributeInternalValue'
+Parsing JAX-RS resource: org.openremote.model.rules.flow.FlowResource
+Parsing 'org.openremote.model.rules.flow.Node'
+Parsing 'org.openremote.model.rules.flow.NodeCollection'
+Parsing 'org.openremote.model.rules.flow.NodeConnection'
+Parsing 'org.openremote.model.rules.flow.NodeDataType'
+Parsing 'org.openremote.model.rules.flow.NodeInternal'
+Parsing 'org.openremote.model.rules.flow.NodeInternal$BreakType'
+Parsing 'org.openremote.model.rules.flow.NodePosition'
+Parsing 'org.openremote.model.rules.flow.NodeSocket'
+Parsing 'org.openremote.model.rules.flow.NodeType'
+Parsing 'org.openremote.model.rules.flow.Option'
+Parsing 'org.openremote.model.rules.flow.Picker'
+Parsing 'org.openremote.model.rules.flow.PickerType'
+Parsing 'org.openremote.model.rules.geofence.GeofenceDefinition'
+Parsing 'org.openremote.model.rules.json.JsonRule'
+Parsing 'org.openremote.model.rules.json.JsonRulesetDefinition'
+Parsing 'org.openremote.model.rules.json.RuleAction'
+Parsing 'org.openremote.model.rules.json.RuleActionAlarm'
+Parsing 'org.openremote.model.rules.json.RuleActionNotification'
+Parsing 'org.openremote.model.rules.json.RuleActionTarget'
+Parsing 'org.openremote.model.rules.json.RuleActionUpdateAttribute'
+Parsing 'org.openremote.model.rules.json.RuleActionUpdateAttribute$UpdateAction'
+Parsing 'org.openremote.model.rules.json.RuleActionWait'
+Parsing 'org.openremote.model.rules.json.RuleActionWebhook'
+Parsing 'org.openremote.model.rules.json.RuleActionWriteAttribute'
+Parsing 'org.openremote.model.rules.json.RuleCondition'
+Parsing 'org.openremote.model.rules.json.RuleRecurrence'
+Parsing 'org.openremote.model.rules.json.RuleRecurrence$Scope'
+Parsing 'org.openremote.model.rules.json.RuleTemplate'
+Parsing 'org.openremote.model.security.ClientRole'
+Parsing 'org.openremote.model.security.Credential'
+Parsing 'org.openremote.model.security.KeyStoreService'
+Parsing 'org.openremote.model.security.Realm'
+Parsing JAX-RS resource: org.openremote.model.security.RealmResource
+Parsing 'org.openremote.model.security.RealmRole'
+Parsing 'org.openremote.model.security.Role'
+Parsing 'org.openremote.model.security.User'
+Parsing 'org.openremote.model.security.UserAttribute'
+Parsing 'org.openremote.model.security.UserPasswordCredentials'
+Parsing JAX-RS resource: org.openremote.model.security.UserResource
+Parsing 'org.openremote.model.security.UserSession'
+Parsing 'org.openremote.model.services.ExternalService'
+Parsing 'org.openremote.model.services.ExternalServiceEvent'
+Parsing 'org.openremote.model.services.ExternalServiceEvent$Cause'
+Parsing 'org.openremote.model.services.ExternalServiceLeaseInfo'
+Parsing JAX-RS resource: org.openremote.model.services.ExternalServiceResource
+Parsing 'org.openremote.model.services.ExternalServiceStatus'
+Parsing 'org.openremote.model.setup.Setup'
+Parsing 'org.openremote.model.setup.SetupTasks'
+Parsing 'org.openremote.model.simulator.RequestSimulatorState'
+Parsing 'org.openremote.model.simulator.SimulatorAttributeInfo'
+Parsing 'org.openremote.model.simulator.SimulatorReplayDatapoint'
+Parsing 'org.openremote.model.simulator.SimulatorState'
+Parsing 'org.openremote.model.syslog.SyslogCategory'
+Parsing 'org.openremote.model.syslog.SyslogConfig'
+Parsing 'org.openremote.model.syslog.SyslogEvent'
+Parsing 'org.openremote.model.syslog.SyslogEvent$LevelCategoryFilter'
+Parsing 'org.openremote.model.syslog.SyslogLevel'
+Parsing JAX-RS resource: org.openremote.model.syslog.SyslogResource
+Parsing 'org.openremote.model.system.HealthStatusProvider'
+Parsing JAX-RS resource: org.openremote.model.system.StatusResource
+Parsing 'org.openremote.model.value.AbstractNameValueDescriptorHolder'
+Parsing 'org.openremote.model.value.AbstractNameValueHolder'
+Parsing 'org.openremote.model.value.AttributeDescriptor'
+Parsing 'org.openremote.model.value.ForecastConfiguration'
+Parsing 'org.openremote.model.value.ForecastConfigurationWeightedExponentialAverage'
+Parsing 'org.openremote.model.value.JsonPathFilter'
+Parsing 'org.openremote.model.value.MathExpressionValueFilter'
+Parsing 'org.openremote.model.value.MetaHolder'
+Parsing 'org.openremote.model.value.MetaItemDescriptor'
+Parsing 'org.openremote.model.value.NameHolder'
+Parsing 'org.openremote.model.value.NameValueHolder'
+Parsing 'org.openremote.model.value.RegexValueFilter'
+Parsing 'org.openremote.model.value.SubStringValueFilter'
+Parsing 'org.openremote.model.value.ValueConstraint'
+Parsing 'org.openremote.model.value.ValueConstraint$AllowedValues'
+Parsing 'org.openremote.model.value.ValueConstraint$Future'
+Parsing 'org.openremote.model.value.ValueConstraint$FutureOrPresent'
+Parsing 'org.openremote.model.value.ValueConstraint$Max'
+Parsing 'org.openremote.model.value.ValueConstraint$Min'
+Parsing 'org.openremote.model.value.ValueConstraint$NotBlank'
+Parsing 'org.openremote.model.value.ValueConstraint$NotEmpty'
+Parsing 'org.openremote.model.value.ValueConstraint$NotNull'
+Parsing 'org.openremote.model.value.ValueConstraint$Past'
+Parsing 'org.openremote.model.value.ValueConstraint$PastOrPresent'
+Parsing 'org.openremote.model.value.ValueConstraint$Pattern'
+Parsing 'org.openremote.model.value.ValueConstraint$Size'
+Parsing 'org.openremote.model.value.ValueDescriptor'
+Parsing 'org.openremote.model.value.ValueDescriptorHolder'
+Parsing 'org.openremote.model.value.ValueFilter'
+Parsing 'org.openremote.model.value.ValueFormat'
+Parsing 'org.openremote.model.value.ValueFormat$StyleRepresentation'
+Parsing 'org.openremote.model.value.ValueHolder'
+Parsing 'org.openremote.model.value.impl.ColourRGB'
+Parsing 'org.openremote.model.value.impl.PeriodAndDuration'
+Parsing 'org.openremote.model.webhook.Webhook'
+Parsing 'net.fortuna.ical4j.model.Recur' used in 'CalendarEvent.recurrence'
+Parsing 'java.lang.Throwable' used in 'DatapointQueryTooLargeException.cause'
+Parsing 'java.lang.StackTraceElement' used in 'DatapointQueryTooLargeException.stackTrace'
+Parsing 'java.lang.RuntimeException' used in 'DatapointQueryTooLargeException.<superClass>'
+Parsing 'org.locationtech.jts.geom.Coordinate' used in 'GeoJSONPoint.coordinates'
+Parsing 'java.util.regex.Pattern' used in 'RegexValueFilter.pattern'
+Parsing 'java.lang.Comparable' used in 'AttributeInfo.<interface>'
+Parsing 'net.fortuna.ical4j.transform.recurrence.Frequency' used in 'Recur.frequency'
+Parsing 'net.fortuna.ical4j.model.Recur$Skip' used in 'Recur.skip'
+Parsing 'net.fortuna.ical4j.model.TemporalAdapter' used in 'Recur.until'
+Parsing 'net.fortuna.ical4j.model.Recur$RScale' used in 'Recur.rscale'
+Parsing 'net.fortuna.ical4j.model.WeekDay' used in 'Recur.dayList'
+Parsing 'net.fortuna.ical4j.model.Month' used in 'Recur.monthList'
+Parsing 'java.time.temporal.TemporalUnit' used in 'Recur.calIncField'
+Parsing 'java.lang.Exception' used in 'RuntimeException.<superClass>'
+Parsing 'java.lang.Cloneable' used in 'Coordinate.<interface>'
+Parsing 'net.fortuna.ical4j.model.parameter.TzId' used in 'TemporalAdapter.tzId'
+Parsing 'net.fortuna.ical4j.model.WeekDay$Day' used in 'WeekDay.day'
+Parsing 'java.time.Duration' used in 'TemporalUnit.duration'
+Parsing 'net.fortuna.ical4j.model.Parameter' used in 'TzId.<superClass>'
+Parsing 'net.fortuna.ical4j.model.Encodable' used in 'TzId.<interface>'
+Parsing 'java.time.temporal.TemporalAmount' used in 'Duration.<interface>'
+Parsing 'net.fortuna.ical4j.model.Content' used in 'Parameter.<superClass>'
+Writing declarations to: /home/damian/Documents/School Projects/Semester 3/Group Project/openremote/ui/component/model/src/model.ts
+Writing module info to: /home/damian/Documents/School Projects/Semester 3/Group Project/openremote/ui/component/model/src/typescript-generator-info.json
+
+> Task :yarnInstall
+➤ YN0000: └ Completed in 0s 521ms
+➤ YN0000: · Done with warnings in 3s 234ms
+
+> Task :ui:component:rest:generateTypeScript
+Running TypeScriptGenerator version 3.2.1263
+Loading class CustomExtension
+Loading class JsonSerializeExtension
+Loading class AggregatedApiClient
+Loading class cz.habarta.typescript.generator.ext.AxiosClientExtension
+Loading class org.checkerframework.checker.nullness.qual.Nullable
+Loading class com.fasterxml.jackson.datatype.jdk8.Jdk8Module
+Loading class com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+Loading class com.fasterxml.jackson.module.paramnames.ParameterNamesModule
+Loading class com.fasterxml.jackson.databind.node.ObjectNode
+Loading class java.lang.Class
+Loading class org.openremote.model.attribute.MetaItem
+Loading class org.openremote.model.asset.Asset
+Loading class org.openremote.model.asset.AssetDescriptor
+Loading class org.openremote.model.asset.agent.Agent
+Loading class org.openremote.model.asset.agent.AgentDescriptor
+Loading class org.openremote.model.value.MetaItemDescriptor
+Loading class org.openremote.model.value.ValueDescriptor
+Configuration: 'AxiosClientExtension' extension set 'generateJaxrsApplicationClient' parameter to 'true'
+Configuration: 'AxiosClientExtension' extension set 'restResponseType' parameter to 'Promise<Axios.GenericAxiosResponse<R>>'
+Configuration: 'AxiosClientExtension' extension set 'restOptionsType' parameter to '<O>'
+Loading '@openremote/model' module info from: /home/damian/Documents/School Projects/Semester 3/Group Project/openremote/ui/component/model/src/typescript-generator-info.json
+Scanning classpath
+Scanning finished in 0.63 seconds. Total number of classes: 36112.
+Found 22 classes matching pattern.
+Parsing JAX-RS resource: org.openremote.model.alarm.AlarmResource
+Parsing JAX-RS resource: org.openremote.model.apps.AppResource
+Parsing JAX-RS resource: org.openremote.model.asset.AssetModelResource
+Parsing JAX-RS resource: org.openremote.model.asset.AssetResource
+Parsing JAX-RS resource: org.openremote.model.asset.agent.AgentResource
+Parsing JAX-RS resource: org.openremote.model.console.ConsoleResource
+Parsing JAX-RS resource: org.openremote.model.dashboard.DashboardResource
+Parsing JAX-RS resource: org.openremote.model.datapoint.AssetDatapointResource
+Parsing JAX-RS resource: org.openremote.model.datapoint.AssetPredictedDatapointResource
+Parsing JAX-RS resource: org.openremote.model.gateway.GatewayClientResource
+Parsing JAX-RS resource: org.openremote.model.gateway.GatewayServiceResource
+Parsing JAX-RS resource: org.openremote.model.manager.ConfigurationResource
+Parsing JAX-RS resource: org.openremote.model.map.MapResource
+Parsing JAX-RS resource: org.openremote.model.notification.NotificationResource
+Parsing JAX-RS resource: org.openremote.model.provisioning.ProvisioningResource
+Parsing JAX-RS resource: org.openremote.model.rules.RulesResource
+Parsing JAX-RS resource: org.openremote.model.rules.flow.FlowResource
+Parsing JAX-RS resource: org.openremote.model.security.RealmResource
+Parsing JAX-RS resource: org.openremote.model.security.UserResource
+Parsing JAX-RS resource: org.openremote.model.services.ExternalServiceResource
+Parsing JAX-RS resource: org.openremote.model.syslog.SyslogResource
+Parsing JAX-RS resource: org.openremote.model.system.StatusResource
+Writing declarations to: /home/damian/Documents/School Projects/Semester 3/Group Project/openremote/ui/component/rest/src/restclient.ts
+
+> Task :ui:component:rest:npmBuild
+../../../node_modules/@types/mdx/types.d.ts(23,38): error TS2503: Cannot find namespace 'JSX'.
+../../../node_modules/@types/mdx/types.d.ts(28,23): error TS2503: Cannot find namespace 'JSX'.
+../../../node_modules/@types/mdx/types.d.ts(47,28): error TS2503: Cannot find namespace 'JSX'.
+../../../node_modules/@types/mdx/types.d.ts(73,46): error TS2503: Cannot find namespace 'JSX'.
+../../../node_modules/@types/mdx/types.d.ts(23,38): error TS2503: Cannot find namespace 'JSX'.
+../../../node_modules/@types/mdx/types.d.ts(28,23): error TS2503: Cannot find namespace 'JSX'.
+../../../node_modules/@types/mdx/types.d.ts(47,28): error TS2503: Cannot find namespace 'JSX'.
+../../../node_modules/@types/mdx/types.d.ts(73,46): error TS2503: Cannot find namespace 'JSX'.
+
+> Task :ui:component:rest:npmBuild FAILED
+
+> Task :ui:component:model:npmBuild FAILED
+../../../node_modules/@types/mdx/types.d.ts(23,38): error TS2503: Cannot find namespace 'JSX'.
+../../../node_modules/@types/mdx/types.d.ts(28,23): error TS2503: Cannot find namespace 'JSX'.
+../../../node_modules/@types/mdx/types.d.ts(47,28): error TS2503: Cannot find namespace 'JSX'.
+../../../node_modules/@types/mdx/types.d.ts(73,46): error TS2503: Cannot find namespace 'JSX'.
+
+[Incubating] Problems report is available at: file:///home/damian/Documents/School%20Projects/Semester%203/Group%20Project/openremote/build/reports/problems/problems-report.html
+
+FAILURE: Build completed with 2 failures.
+
+1: Task failed with an exception.
+-----------
+* What went wrong:
+Execution failed for task ':ui:component:rest:npmBuild'.
+> Process 'command 'yarn'' finished with non-zero exit value 1
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+==============================================================================
+
+2: Task failed with an exception.
+-----------
+* What went wrong:
+Execution failed for task ':ui:component:model:npmBuild'.
+> Process 'command 'yarn'' finished with non-zero exit value 1
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+==============================================================================
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.1.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 12s
+18 actionable tasks: 5 executed, 13 up-to-date
+
+Waiting for changes to input files...
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Gradle build daemon has been stopped: stop command received
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.

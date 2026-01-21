@@ -16,6 +16,8 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "composite": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "jsx": "react",
+    "skipLibCheck": true
   }
 }

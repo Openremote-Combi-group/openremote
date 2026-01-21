@@ -44,9 +44,7 @@
                   "include": []
                 },
                 "attributes": {
-                  "include": [
-                    "location"
-                  ],
+                  "include": ["location"],
                   "itemConfig": {
                     "location": {
                       "label": ""
@@ -61,11 +59,7 @@
                   "include": []
                 },
                 "attributes": {
-                  "include": [
-                    "salinity",
-                    "soilTensionMeasured",
-                    "temperature"
-                  ]
+                  "include": ["salinity", "soilTensionMeasured", "temperature"]
                 }
               },
               {
@@ -75,10 +69,7 @@
                   "include": []
                 },
                 "attributes": {
-                  "include": [
-                    "soilTensionMin",
-                    "soilTensionMax"
-                  ]
+                  "include": ["soilTensionMin", "soilTensionMax"]
                 }
               },
               {
@@ -116,9 +107,7 @@
                   "include": []
                 },
                 "attributes": {
-                  "include": [
-                    "location"
-                  ],
+                  "include": ["location"],
                   "itemConfig": {
                     "location": {
                       "label": ""
@@ -133,11 +122,7 @@
                   "include": []
                 },
                 "attributes": {
-                  "include": [
-                    "operationMode",
-                    "speed",
-                    "direction"
-                  ]
+                  "include": ["operationMode", "speed", "direction"]
                 }
               },
               {
@@ -148,9 +133,7 @@
                   "include": []
                 },
                 "attributes": {
-                  "include": [
-                    "vegetableType"
-                  ]
+                  "include": ["vegetableType"]
                 }
               },
               {
@@ -160,10 +143,7 @@
                   "include": []
                 },
                 "attributes": {
-                  "include": [
-                    "harvestedSession",
-                    "harvestedTotal"
-                  ]
+                  "include": ["harvestedSession", "harvestedTotal"]
                 }
               },
               {
